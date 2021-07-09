@@ -81,7 +81,6 @@ public class NotePadTest {
             
         });
         
-        
         frame.getContentPane().add(BorderLayout.NORTH, menuBar);
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         
