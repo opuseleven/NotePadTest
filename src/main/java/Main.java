@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         
         NotePadTest notePad = new NotePadTest();
+        Gui gui = new Gui(notePad);
     }
     
 }
