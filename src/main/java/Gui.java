@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 import java.awt.BorderLayout;
+import java.awt.Insets;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 /**
@@ -28,6 +30,7 @@ public class Gui {
     private static JMenu help;
     private final JPanel mainPanel;
     private JTextArea textBox;
+    private JScrollPane scrollPane;
     private String text;
     private String clipboard;
     private String fileName = "Untitled";
@@ -53,6 +56,7 @@ public class Gui {
         JMenuItem quitButton = new JMenuItem("Quit");
         JMenuItem copyButton = new JMenuItem("Copy");
         JMenuItem pasteButton = new JMenuItem("Paste");
+        JMenuItem cutButton = new JMenuItem("Cut");
         JMenuItem helpButton = new JMenuItem("Help");
         
         newFileButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_MASK,true));
@@ -66,13 +70,19 @@ public class Gui {
         file.add(quitButton);
         edit.add(copyButton);
         edit.add(pasteButton);
+        edit.add(cutButton);
         help.add(helpButton);
         
         mainPanel = new JPanel();
         text = "";
         clipboard = "";
-        // textBox = new JTextArea(text, TextArea.SCROLLBARS_VERTICAL_ONLY);
-        textBox = new JTextArea(text);
+        textBox = new JTextArea(30, 25);
+        textBox.setAutoscrolls(true);
+        textBox.setMargin(new Insets(20, 20, 20, 20));
+        textBox.setLineWrap(true);
+        textBox.setWrapStyleWord(true);
+        textBox.setText(text);
+        
         mainPanel.add(textBox);
         
         newFileButton.addActionListener(e -> {
@@ -89,6 +99,9 @@ public class Gui {
         });
         pasteButton.addActionListener(e -> {
             notePad.paste(textBox);
+        });
+        cutButton.addActionListener(e -> {
+            notePad.cut(textBox);
         });
         
         frame.getContentPane().add(BorderLayout.NORTH, menuBar);

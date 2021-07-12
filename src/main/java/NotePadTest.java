@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.awt.Cursor;
 import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -45,5 +46,8 @@ public class NotePadTest {
     }
     public void paste(JTextArea textBox) {
         textBox.paste();
+    }
+    public void cut(JTextArea textBox) {
+        textBox.cut();
     }
 }
