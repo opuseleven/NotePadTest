@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 /**
@@ -43,7 +40,10 @@ public class NotePadTest {
             }
         }
     }
-    public void copy() {
-        
+    public void copy(JTextArea textBox) {
+        textBox.copy();
+    }
+    public void paste(JTextArea textBox) {
+        textBox.paste();
     }
 }

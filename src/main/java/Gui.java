@@ -72,7 +72,7 @@ public class Gui {
         text = "";
         clipboard = "";
         // textBox = new JTextArea(text, TextArea.SCROLLBARS_VERTICAL_ONLY);
-        textBox = new JTextArea();
+        textBox = new JTextArea(text);
         mainPanel.add(textBox);
         
         newFileButton.addActionListener(e -> {
@@ -85,7 +85,10 @@ public class Gui {
             System.exit(0);
         });
         copyButton.addActionListener(e -> {
-            
+            notePad.copy(textBox);
+        });
+        pasteButton.addActionListener(e -> {
+            notePad.paste(textBox);
         });
         
         frame.getContentPane().add(BorderLayout.NORTH, menuBar);
