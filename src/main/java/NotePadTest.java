@@ -19,7 +19,6 @@ public class NotePadTest {
     private String fileName = "Untitled";
     private String filePath;
     private String text;
-    private String clipboard;
     
     public NotePadTest() {
        

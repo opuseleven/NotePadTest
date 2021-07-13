@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -146,7 +148,38 @@ public class Gui extends JFrame {
         cutButton.addActionListener(e -> {
             notePad.cut(textBox);
         });
-        
+        mCopyButton.addActionListener(e -> {
+            notePad.copy(textBox);
+        });
+        mPasteButton.addActionListener(e -> {
+            notePad.paste(textBox);
+        });
+        mUndoButton.addActionListener(e -> {
+            manager.undo();
+        });
+        mRedoButton.addActionListener(e -> {
+            manager.redo();
+        });
+        mCutButton.addActionListener(e -> {
+            notePad.cut(textBox);
+        });
+        textBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    showMenu(e);
+		}
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+		if (e.isPopupTrigger()) {
+                    showMenu(e);
+		}
+            }
+            private void showMenu(MouseEvent e) {
+                mouseMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+	});
         frame.getContentPane().add(BorderLayout.NORTH, menuBar);
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
         
