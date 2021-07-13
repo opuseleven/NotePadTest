@@ -20,12 +20,14 @@ public class NotePadTest {
     
     public NotePadTest() {
        
-         newDocument();
+         text = "";
     }
     
-    public void newDocument() {
+    public void newDocument(JTextArea textBox) {
         fileName = "Untitled";
         text = "";
+        textBox.setText(text);
+        
     }
     public void open(JFrame frame, JTextArea textBox) {
         JFileChooser openChooser = new JFileChooser();

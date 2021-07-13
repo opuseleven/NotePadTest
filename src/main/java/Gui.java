@@ -102,7 +102,7 @@ public class Gui extends JFrame {
         mainPanel.add(textBox);
         
         newFileButton.addActionListener(e -> {
-            notePad.newDocument();
+            notePad.newDocument(textBox);
         });
         openButton.addActionListener(e-> {
             notePad.open(frame, textBox);
