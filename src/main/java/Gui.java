@@ -41,7 +41,7 @@ public class Gui extends JFrame {
     public Gui(NotePadTest notePad) {
         this.notePad = notePad;
         
-        frame = new JFrame("NotePad");
+        frame = new JFrame("NotePad" + " - " + fileName);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         
@@ -56,9 +56,10 @@ public class Gui extends JFrame {
         
         mouseMenu = new JPopupMenu();
         
-        JMenuItem newFileButton = new JMenuItem("New File");
+        JMenuItem newFileButton = new JMenuItem("New Document");
         JMenuItem openButton = new JMenuItem("Open");
         JMenuItem saveButton = new JMenuItem("Save");
+        JMenuItem saveAsButton = new JMenuItem("Save As");
         JMenuItem quitButton = new JMenuItem("Quit");
         JMenuItem copyButton = new JMenuItem("Copy");
         JMenuItem pasteButton = new JMenuItem("Paste");
@@ -78,6 +79,7 @@ public class Gui extends JFrame {
         file.add(newFileButton);
         file.add(openButton);
         file.add(saveButton);
+        file.add(saveAsButton);
         file.add(quitButton);
         edit.add(copyButton);
         edit.add(pasteButton);
@@ -102,13 +104,16 @@ public class Gui extends JFrame {
         mainPanel.add(textBox);
         
         newFileButton.addActionListener(e -> {
-            notePad.newDocument(textBox);
+            notePad.newDocument(frame, textBox);
         });
         openButton.addActionListener(e-> {
             notePad.open(frame, textBox);
         });
         saveButton.addActionListener(e -> {
             notePad.save(frame, textBox);
+        });
+        saveAsButton.addActionListener(e -> {
+            notePad.saveAs(frame, textBox);
         });
         quitButton.addActionListener(e -> {
             System.exit(0);
