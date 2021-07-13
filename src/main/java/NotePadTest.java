@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.awt.Cursor;
+import java.io.BufferedReader;
 import javax.swing.*;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 /**
  *
@@ -25,6 +26,21 @@ public class NotePadTest {
     public void newDocument() {
         fileName = "Untitled";
         text = "";
+    }
+    public void open(JFrame frame, JTextArea textBox) {
+        JFileChooser openChooser = new JFileChooser();
+        int option = openChooser.showOpenDialog(textBox);
+        
+        if (option == JFileChooser.APPROVE_OPTION) {
+            try {
+                BufferedReader in = new BufferedReader(new FileReader(openChooser.getSelectedFile().getPath()));
+                in.read();
+                text = in.toString();
+                textBox.setText(text);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void save(JFrame frame, JTextArea textBox) {
         JFileChooser saveChooser = new JFileChooser();
