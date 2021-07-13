@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -18,6 +17,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
+import javax.swing.undo.UndoManager;
 /**
  *
  * @author cody
@@ -54,6 +54,8 @@ public class Gui extends JFrame {
         menuBar.add(edit);
         menuBar.add(help);
         
+        UndoManager manager = new UndoManager();
+        
         mouseMenu = new JPopupMenu();
         
         JMenuItem newFileButton = new JMenuItem("New Document");
@@ -63,18 +65,24 @@ public class Gui extends JFrame {
         JMenuItem quitButton = new JMenuItem("Quit");
         JMenuItem copyButton = new JMenuItem("Copy");
         JMenuItem pasteButton = new JMenuItem("Paste");
+        JMenuItem undoButton = new JMenuItem("Undo");
+        JMenuItem redoButton = new JMenuItem("Redo");
         JMenuItem cutButton = new JMenuItem("Cut");
         JMenuItem helpButton = new JMenuItem("Help");
         
         JMenuItem mCopyButton = new JMenuItem("Copy");
         JMenuItem mPasteButton = new JMenuItem("Paste");
         JMenuItem mCutButton = new JMenuItem("Cut");
+        JMenuItem mUndoButton = new JMenuItem("Undo");
+        JMenuItem mRedoButton = new JMenuItem("Redo");
         
-        newFileButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_MASK,true));
-        saveButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_MASK,true));
-        quitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,InputEvent.CTRL_MASK,true));
-        copyButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_MASK,true));
-        pasteButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,InputEvent.CTRL_MASK,true));
+        newFileButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK, true));
+        saveButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK, true));
+        quitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK, true));
+        copyButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK, true));
+        pasteButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK, true));
+        undoButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK, true));
+        redoButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK, true));
         
         file.add(newFileButton);
         file.add(openButton);
@@ -83,11 +91,15 @@ public class Gui extends JFrame {
         file.add(quitButton);
         edit.add(copyButton);
         edit.add(pasteButton);
+        edit.add(undoButton);
+        edit.add(redoButton);
         edit.add(cutButton);
         help.add(helpButton);
         
         mouseMenu.add(mCopyButton);
         mouseMenu.add(mPasteButton);
+        mouseMenu.add(mUndoButton);
+        mouseMenu.add(mRedoButton);
         mouseMenu.add(mCutButton);
         
         mainPanel = new JPanel();
@@ -98,6 +110,7 @@ public class Gui extends JFrame {
         textBox.setMargin(new Insets(20, 20, 20, 20));
         textBox.setLineWrap(true);
         textBox.setWrapStyleWord(true);
+        textBox.getDocument().addUndoableEditListener(manager);
         textBox.setText(text);
         textBox.add(mouseMenu);
         
@@ -123,6 +136,12 @@ public class Gui extends JFrame {
         });
         pasteButton.addActionListener(e -> {
             notePad.paste(textBox);
+        });
+        undoButton.addActionListener(e -> {
+            manager.undo();
+        });
+        redoButton.addActionListener(e -> {
+            manager.redo();
         });
         cutButton.addActionListener(e -> {
             notePad.cut(textBox);
