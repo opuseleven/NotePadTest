@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -153,6 +154,12 @@ public class Gui extends JFrame {
         });
         bulletButton.addActionListener(e -> {
             notePad.addBullet(textBox);
+        });
+        helpButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(frame, 
+                    "Someday this message will help you.",
+                    "Help",
+                    JOptionPane.PLAIN_MESSAGE);
         });
         mCopyButton.addActionListener(e -> {
             notePad.copy(textBox);
