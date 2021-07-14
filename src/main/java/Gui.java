@@ -26,18 +26,18 @@ import javax.swing.undo.UndoManager;
  */
 public class Gui extends JFrame {
     
-    private NotePadTest notePad;
+    private final NotePadTest notePad;
     private static JFrame frame;
     private static JMenuBar menuBar;
     private static JMenu file;
     private static JMenu edit;
+    private static JMenu format;
     private static JMenu help;
     private JPopupMenu mouseMenu;
     private final JPanel mainPanel;
     private JTextArea textBox;
     private JScrollPane scrollPane;
     private String text;
-    private String clipboard;
     private String fileName = "Untitled";
     
     public Gui(NotePadTest notePad) {
@@ -50,10 +50,12 @@ public class Gui extends JFrame {
         menuBar = new JMenuBar();
         file = new JMenu("File");
         edit = new JMenu("Edit");
+        format = new JMenu("Format");
         help = new JMenu("Help");
         
         menuBar.add(file);
         menuBar.add(edit);
+        menuBar.add(format);
         menuBar.add(help);
         
         UndoManager manager = new UndoManager();
@@ -70,6 +72,7 @@ public class Gui extends JFrame {
         JMenuItem undoButton = new JMenuItem("Undo");
         JMenuItem redoButton = new JMenuItem("Redo");
         JMenuItem cutButton = new JMenuItem("Cut");
+        JMenuItem bulletButton = new JMenuItem("Add Bullet");
         JMenuItem helpButton = new JMenuItem("Help");
         
         JMenuItem mCopyButton = new JMenuItem("Copy");
@@ -96,6 +99,7 @@ public class Gui extends JFrame {
         edit.add(undoButton);
         edit.add(redoButton);
         edit.add(cutButton);
+        format.add(bulletButton);
         help.add(helpButton);
         
         mouseMenu.add(mCopyButton);
@@ -106,7 +110,6 @@ public class Gui extends JFrame {
         
         mainPanel = new JPanel();
         text = "";
-        clipboard = "";
         textBox = new JTextArea(30, 25);
         textBox.setAutoscrolls(true);
         textBox.setMargin(new Insets(20, 20, 20, 20));
@@ -147,6 +150,9 @@ public class Gui extends JFrame {
         });
         cutButton.addActionListener(e -> {
             notePad.cut(textBox);
+        });
+        bulletButton.addActionListener(e -> {
+            notePad.addBullet(textBox);
         });
         mCopyButton.addActionListener(e -> {
             notePad.copy(textBox);

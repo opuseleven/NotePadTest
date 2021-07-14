@@ -99,4 +99,9 @@ public class NotePadTest {
     public void cut(JTextArea textBox) {
         textBox.cut();
     }
+    public void addBullet(JTextArea textBox) {
+        text = textBox.getText();
+        text = text + "\n" + "\u2022" + " ";
+        textBox.setText(text);
+    }
 }
