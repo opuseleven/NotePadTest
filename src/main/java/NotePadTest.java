@@ -22,7 +22,7 @@ public class NotePadTest {
     
     public NotePadTest() {
        
-         text = "";
+        this.text = "";
     }
     
     public void newDocument(JFrame frame, JTextArea textBox) {
